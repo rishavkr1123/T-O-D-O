@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import Task from './Task'
 import  taskList  from '../utils/MockData'
 import { 
@@ -29,6 +29,11 @@ function TodoContainer(props) {
     
     let {isDark, handleThemeChange}= useContext(mode)
     const themeIconPath = isDark? "/images/icon-sun.svg": "/images/icon-moon.svg";
+
+    useEffect(()=>{
+        setTimeout(handleSearch,2000)
+
+    }, [searchField])
 
     function findIndex(val, arr){
         for(let i=0;i<arr.length;i++){
@@ -90,11 +95,11 @@ function TodoContainer(props) {
 
     }
     function handleSearch(){
-        const searchedTask = filteredTask.filter((val,index)=> val.name.toLowerCase().includes(searchField.toLowerCase()))
+        const searchedTask = task.filter((val,index)=> val.name.toLowerCase().includes(searchField.toLowerCase()))
         console.log(searchedTask)
         setFilteredTask(prevTask=> searchedTask )
     }
-    function handleSorting(){cd
+    function handleSorting(){
         console.log("sorting")
         const Sortedtask = filteredTask.toSorted(
             (a,b)=> a.name.localeCompare(b.name)
@@ -126,7 +131,7 @@ function TodoContainer(props) {
         </StyledInputContainer>
         <StyledSearchContainer>
             <StyledInput type='text' placeholder='Search your task...' value = {searchField} onChange={handlesearchChange} onKeyDown={handleSearchKeyDown}/>
-            <StyledSearchButton onClick={handleSearch}>Search</StyledSearchButton>
+            {/* <StyledSearchButton onClick={handleSearch}>Search</StyledSearchButton> */}
         </StyledSearchContainer>
         <FilterToDoContainer>
             <StyledSortButton onClick={handleSorting}>Sort</StyledSortButton>
