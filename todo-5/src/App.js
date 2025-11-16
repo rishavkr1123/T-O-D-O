@@ -8,7 +8,8 @@ import { GlobalStyle } from './components/styledComponents/Global.styled';
 function App() {
   let [isDark, setIsDark] = useState(true); 
   
-
+  console.log('isDark',isDark);
+  
   const handleThemeChange = () => {
     setIsDark(prevIsDark => !prevIsDark);
   };
